@@ -257,18 +257,21 @@ a:hover {
 
 
 /* ==========================================================================
-   Contact Form Styling
+   Contact Form Styling 
    ========================================================================== */
 .contact-form {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  width: 100%; /* Ensures form takes full width of the card */
+  margin-top: 1.5rem;
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  width: 100%;
 }
 
 .contact-form label {
@@ -277,21 +280,26 @@ a:hover {
   color: var(--text-color);
 }
 
+/* Beautifully styled input fields */
 .contact-form input,
 .contact-form textarea {
   width: 100%;
   padding: 0.8rem 1rem;
   border-radius: 8px;
-  border: 1px solid var(--border-color);
-  background-color: var(--secondary-bg);
+  /* Soft border that adapts to light/dark themes */
+  border: 1px solid var(--border-color); 
+  /* Uses a very subtle, slightly contrasted tint instead of harsh white */
+  background-color: var(--secondary-bg); 
   color: var(--text-color);
   font-family: var(--font-body);
   font-size: 1rem;
-  transition: border-color 0.2s ease;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
+/* Clean, interactive focus states when a user clicks into a box */
 .contact-form input:focus,
 .contact-form textarea:focus {
   outline: none;
   border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px rgba(74, 111, 165, 0.15);
 }
