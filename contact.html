@@ -3,29 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <title>Contact | Your Name</title>
-  <meta name="description" content="Get in touch with [Your Name] for creative development and design inquiries.">
-  <meta name="author" content="Your Name">
-  
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;400;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
-  
+  <title>Contact | Hardik</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;400;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
-  <style>
-    /* Inverting header color for light background on this page */
-    .site-header { mix-blend-mode: normal; color: var(--deep-ink); }
-  </style>
 </head>
 <body>
 
-  <a href="#main-content" class="skip-link">Skip to main content</a>
-
   <header class="site-header" role="banner">
-    <div class="logo" aria-label="Home">
-      <a href="index.html">YN.</a>
-    </div>
+    <div class="logo"><a href="index.html">H.</a></div>
     <nav aria-label="Main Navigation">
       <ul class="nav-links">
         <li><a href="index.html">Work</a></li>
@@ -34,36 +19,30 @@
     </nav>
   </header>
 
-  <main id="main-content" class="page-layout" role="main">
-    <article>
-      <header>
-        <h1>Let's Connect</h1>
-        <p style="color: var(--soft-ash); margin-bottom: 3rem;">
-          Whether you have a project in mind or just want to chat about design and development, feel free to reach out.
-        </p>
-      </header>
-
-      <form action="/submit-endpoint" method="POST" aria-label="Contact form">
+  <main id="main-content" style="padding-top: 120px; max-width: 600px; margin: 0 auto; padding-left: 2rem; padding-right: 2rem;">
+    <section class="bento-card" aria-label="Contact Form">
+      <h2 style="margin-bottom: 0.5rem;">Get In Touch</h2>
+      <p style="opacity: 0.8; margin-bottom: 2rem;">Feel free to reach out for collaborations or opportunities.</p>
+      
+      <form class="contact-form">
+        <div class="form-group">
+          <label for="name">Full Name *</label>
+          <input type="text" id="name" name="name" required>
+        </div>
         
         <div class="form-group">
-          <label for="name">Full Name <span aria-hidden="true">*</span></label>
-          <input type="text" id="name" name="name" required aria-required="true" autocomplete="name">
+          <label for="email">Email Address *</label>
+          <input type="email" id="email" name="email" required>
         </div>
-
+        
         <div class="form-group">
-          <label for="email">Email Address <span aria-hidden="true">*</span></label>
-          <input type="email" id="email" name="email" required aria-required="true" autocomplete="email">
+          <label for="message">Message *</label>
+          <textarea id="message" name="message" rows="5" required></textarea>
         </div>
-
-        <div class="form-group">
-          <label for="message">Message <span aria-hidden="true">*</span></label>
-          <textarea id="message" name="message" rows="6" required aria-required="true"></textarea>
-        </div>
-
-        <button type="submit">Send Message</button>
-
+        
+        <button type="submit" class="bento-link" style="border: none; cursor: pointer; font-family: inherit; font-size: 1rem; width: 100%;">Send Message</button>
       </form>
-    </article>
+    </section>
   </main>
 
 </body>
