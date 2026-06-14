@@ -1,0 +1,248 @@
+/* ==========================================================================
+   CSS Variables & Base Setup
+   ========================================================================== */
+:root {
+  /* Palette */
+  --deep-ink: #0D0F14;
+  --warm-ivory: #F2EDE4;
+  --muted-gold: #C9A84C;
+  --slate-blue: #4A6FA5;
+  --soft-ash: #8A8F9E;
+
+  /* Typography */
+  --font-display: 'Fraunces', serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--warm-ivory);
+  color: var(--deep-ink);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ==========================================================================
+   Typography & Hierarchy
+   ========================================================================== */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  margin: 0 0 1rem 0;
+  line-height: 1.1;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--slate-blue);
+}
+
+/* ==========================================================================
+   Accessibility & Focus States
+   ========================================================================== */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--muted-gold);
+  color: var(--deep-ink);
+  padding: 8px 16px;
+  z-index: 100;
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+:focus-visible {
+  outline: 3px solid var(--muted-gold);
+  outline-offset: 4px;
+}
+
+/* Respect user motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ==========================================================================
+   Layout & Navigation
+   ========================================================================== */
+.site-header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 50;
+  mix-blend-mode: difference;
+  color: var(--warm-ivory);
+}
+
+.nav-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 2rem;
+  font-family: var(--font-body);
+  font-weight: 500;
+}
+
+/* ==========================================================================
+   Split-Screen Hero
+   ========================================================================== */
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 100vh;
+}
+
+.hero-left {
+  background-color: var(--slate-blue); /* Swapped from --deep-ink */
+  color: var(--warm-ivory);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.name-treatment {
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  color: transparent;
+  -webkit-text-stroke: 2px var(--warm-ivory); 
+  white-space: nowrap;
+  letter-spacing: 0.05em;
+}
+
+.hero-right {
+  background-color: var(--warm-ivory);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 4rem;
+  position: relative;
+}
+
+.intro-text {
+  font-size: 1.5rem;
+  max-width: 600px;
+  color: var(--soft-ash);
+}
+
+.intro-text strong {
+  color: var(--deep-ink);
+}
+
+/* ==========================================================================
+   Ticker Component
+   ========================================================================== */
+.ticker-wrap {
+  position: absolute;
+  bottom: 2rem;
+  left: 4rem;
+  right: 4rem;
+  overflow: hidden;
+  border-top: 1px solid var(--soft-ash);
+  padding-top: 1rem;
+}
+
+.ticker {
+  display: inline-block;
+  white-space: nowrap;
+  animation: ticker 20s linear infinite;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  color: var(--slate-blue);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+@keyframes ticker {
+  0%   { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
+}
+
+/* ==========================================================================
+   Contact Form Page
+   ========================================================================== */
+.page-layout {
+  min-height: 100vh;
+  padding: 8rem 2rem 4rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.form-group {
+  margin-bottom: 2rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--deep-ink);
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 1rem;
+  background: transparent;
+  border: 1px solid var(--soft-ash);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--deep-ink);
+  transition: border-color 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--slate-blue);
+  box-shadow: 0 0 0 3px rgba(74, 111, 165, 0.2);
+}
+
+button[type="submit"] {
+  background-color: var(--deep-ink);
+  color: var(--warm-ivory);
+  border: none;
+  padding: 1rem 2rem;
+  font-family: var(--font-body);
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: var(--slate-blue);
+}
+
+button[type="submit"]:focus-visible {
+  outline: 3px solid var(--muted-gold);
+  outline-offset: 4px;
+}
