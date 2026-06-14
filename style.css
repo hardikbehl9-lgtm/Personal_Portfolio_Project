@@ -1,19 +1,33 @@
-/* ==========================================================================
-   CSS Variables & Base Setup
-   ========================================================================== */
-:root {
-  /* Palette */
-  --deep-ink: #0D0F14;
-  --warm-ivory: #F2EDE4;
-  --muted-gold: #C9A84C;
-  --slate-blue: #4A6FA5;
-  --soft-ash: #8A8F9E;
 
-  /* Typography */
+   
+:root {
+  /* Default Light Mode */
+  --bg-color: #F2EDE4; 
+  --text-color: #0D0F14; 
+  --accent-color: #4A6FA5; 
+  --secondary-bg: #E8E3DA;
+  --card-bg: #FFFFFF;
+  --border-color: rgba(13, 15, 20, 0.1);
+  
   --font-display: 'Fraunces', serif;
   --font-body: 'Inter', sans-serif;
 }
 
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Dynamic Dark Mode */
+    --bg-color: #0D0F14; 
+    --text-color: #F2EDE4; 
+    --accent-color: #C9A84C; 
+    --secondary-bg: #1A1D24;
+    --card-bg: #14171E;
+    --border-color: rgba(242, 237, 228, 0.1);
+  }
+}
+
+/* ==========================================================================
+   Base Setup & Accessibility
+   ========================================================================== */
 *, *::before, *::after {
   box-sizing: border-box;
 }
@@ -25,17 +39,15 @@ html {
 body {
   margin: 0;
   padding: 0;
-  background-color: var(--warm-ivory);
-  color: var(--deep-ink);
+  background-color: var(--bg-color);
+  color: var(--text-color);
   font-family: var(--font-body);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* ==========================================================================
-   Typography & Hierarchy
-   ========================================================================== */
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3 {
   font-family: var(--font-display);
   font-weight: 400;
   margin: 0 0 1rem 0;
@@ -49,41 +61,18 @@ a {
 }
 
 a:hover {
-  color: var(--slate-blue);
+  color: var(--accent-color);
 }
 
-/* ==========================================================================
-   Accessibility & Focus States
-   ========================================================================== */
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;
+}
+
 .skip-link {
-  position: absolute;
-  top: -40px;
-  left: 0;
-  background: var(--muted-gold);
-  color: var(--deep-ink);
-  padding: 8px 16px;
-  z-index: 100;
-  transition: top 0.2s ease;
+  position: absolute; top: -40px; left: 0; background: var(--accent-color); color: var(--bg-color); padding: 8px 16px; z-index: 100; transition: top 0.2s ease;
 }
-
-.skip-link:focus {
-  top: 0;
-}
-
-:focus-visible {
-  outline: 3px solid var(--muted-gold);
-  outline-offset: 4px;
-}
-
-/* Respect user motion preferences */
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-}
+.skip-link:focus { top: 0; }
+:focus-visible { outline: 3px solid var(--accent-color); outline-offset: 4px; }
 
 /* ==========================================================================
    Layout & Navigation
@@ -92,157 +81,176 @@ a:hover {
   position: fixed;
   top: 0;
   width: 100%;
-  padding: 2rem;
+  padding: 1.5rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   z-index: 50;
-  mix-blend-mode: difference;
-  color: var(--warm-ivory);
+  background: var(--bg-color);
+  border-bottom: 1px solid var(--border-color);
 }
 
+.logo { font-family: var(--font-display); font-size: 1.5rem; font-weight: 600; }
+
 .nav-links {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  gap: 2rem;
-  font-family: var(--font-body);
-  font-weight: 500;
+  list-style: none; margin: 0; padding: 0; display: flex; gap: 2rem; font-weight: 500;
 }
 
 /* ==========================================================================
-   Split-Screen Hero
+   Mobile-First Hero Section
    ========================================================================== */
 .hero {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-direction: column; /* Stacks vertically on mobile */
   min-height: 100vh;
+  padding-top: 80px;
 }
 
 .hero-left {
-  background-color: var(--slate-blue); /* Swapped from --deep-ink */
-  color: var(--warm-ivory);
+  background-color: var(--secondary-bg);
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  padding-right: 2rem;
-  position: relative;
-  overflow: hidden;
+  justify-content: center;
+  padding: 4rem 2rem;
 }
 
 .name-treatment {
-  font-size: clamp(2.5rem, 5vw, 4.5rem);
-  color: transparent;
-  -webkit-text-stroke: 2px var(--warm-ivory); 
-  white-space: nowrap;
-  letter-spacing: 0.05em;
+  font-size: clamp(3rem, 10vw, 8rem);
+  margin: 0;
+  color: var(--text-color);
 }
 
 .hero-right {
-  background-color: var(--warm-ivory);
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 4rem;
-  position: relative;
+  padding: 4rem 2rem;
 }
 
 .intro-text {
-  font-size: 1.5rem;
+  font-size: clamp(1.2rem, 3vw, 1.5rem);
   max-width: 600px;
-  color: var(--soft-ash);
+  color: var(--text-color);
+  opacity: 0.8;
 }
 
 .intro-text strong {
-  color: var(--deep-ink);
+  color: var(--accent-color);
+  font-weight: 600;
 }
 
 /* ==========================================================================
-   Ticker Component
+   Advanced CSS Grid & Flexbox (Bento Box Layout)
    ========================================================================== */
-.ticker-wrap {
-  position: absolute;
-  bottom: 2rem;
-  left: 4rem;
-  right: 4rem;
-  overflow: hidden;
-  border-top: 1px solid var(--soft-ash);
-  padding-top: 1rem;
-}
-
-.ticker {
-  display: inline-block;
-  white-space: nowrap;
-  animation: ticker 20s linear infinite;
-  font-family: var(--font-body);
-  font-size: 0.875rem;
-  color: var(--slate-blue);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-@keyframes ticker {
-  0%   { transform: translate3d(0, 0, 0); }
-  100% { transform: translate3d(-50%, 0, 0); }
-}
-
-/* ==========================================================================
-   Contact Form Page
-   ========================================================================== */
-.page-layout {
-  min-height: 100vh;
-  padding: 8rem 2rem 4rem;
-  max-width: 800px;
+.projects-section {
+  padding: 4rem 2rem;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
-.form-group {
+.section-title {
+  font-size: 2.5rem;
   margin-bottom: 2rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 1rem;
 }
 
-.form-group label {
+/* Mobile Grid (1 Column by default) */
+.bento-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+/* Flexbox Component Alignment */
+.bento-card {
+  background-color: var(--card-bg);
+  padding: 2.5rem;
+  border-radius: 16px;
+  border: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.bento-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent-color);
+}
+
+.tech-tag {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--accent-color);
+  font-weight: 600;
+  margin-bottom: 1rem;
   display: block;
+}
+
+.bento-card h3 {
+  font-size: 1.5rem;
   margin-bottom: 0.5rem;
-  font-weight: 500;
-  color: var(--deep-ink);
 }
 
-.form-group input,
-.form-group textarea {
-  width: 100%;
-  padding: 1rem;
-  background: transparent;
-  border: 1px solid var(--soft-ash);
-  font-family: var(--font-body);
-  font-size: 1rem;
-  color: var(--deep-ink);
-  transition: border-color 0.2s ease;
+.bento-card p {
+  font-size: 0.95rem;
+  opacity: 0.8;
+  margin-bottom: 1.5rem;
 }
 
-.form-group input:focus,
-.form-group textarea:focus {
-  outline: none;
-  border-color: var(--slate-blue);
-  box-shadow: 0 0 0 3px rgba(74, 111, 165, 0.2);
+.bento-link {
+  font-weight: 600;
+  color: var(--bg-color);
+  background-color: var(--text-color);
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  margin-top: auto; /* Flexbox trick to push button to the bottom */
 }
 
-button[type="submit"] {
-  background-color: var(--deep-ink);
-  color: var(--warm-ivory);
-  border: none;
-  padding: 1rem 2rem;
-  font-family: var(--font-body);
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
+.bento-link:hover {
+  background-color: var(--accent-color);
+  color: var(--bg-color);
 }
 
-button[type="submit"]:hover {
-  background-color: var(--slate-blue);
-}
+/* ==========================================================================
+    Responsive Architecture (Tablet & Desktop Overrides)
+   ========================================================================== */
+@media (min-width: 768px) {
+  
+  /* Convert Hero back to 2-column split screen on larger screens */
+  .hero {
+    flex-direction: row;
+    padding-top: 0;
+  }
+  
+  .hero-left, .hero-right {
+    flex: 1; /* Takes up 50% width each */
+  }
 
-button[type="submit"]:focus-visible {
-  outline: 3px solid var(--muted-gold);
-  outline-offset: 4px;
+  .hero-left {
+    justify-content: flex-end;
+    padding-right: 4rem;
+  }
+
+  .hero-right {
+    padding-left: 4rem;
+  }
+
+  /* Convert Projects to Complex 3-Column Grid */
+  .bento-grid {
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: minmax(280px, auto);
+  }
+
+  .feature-card {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+  
+  .feature-card h3 {
+    font-size: 2.5rem;
+  }
 }
